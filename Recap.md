@@ -186,3 +186,33 @@ public IActionResult Index()
 ```
 
 =====================================================
+
+## Présentation des layouts
+
+-   Qu'est-ce qu'un layout ?
+
+Un layout est une vue qui contient le code HTML commun à plusieurs vues.
+Elle permet de factoriser le code HTML commun à plusieurs vues.
+
+-   Création d'un layout
+
+```html
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>@ViewData["Title"]</title>
+    </head>
+    <body>
+        <h1>@ViewData["Title"]</h1>
+        @RenderBody()
+    </body>
+</html>
+```
+
+-   Utilisation d'un layout
+
+```html
+@{ Layout = "_Layout";
+```
+
+=====================================================
