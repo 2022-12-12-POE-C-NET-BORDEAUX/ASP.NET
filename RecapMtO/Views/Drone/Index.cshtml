@@ -1,0 +1,21 @@
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Drone</title>
+</head>
+<body>
+	<p>Coucou je suis un drone</p>
+	@* <p>@Model</p> *@
+	@* Je peux avoir acces a du c# en utilisant le character @ *@
+	@foreach (Drone item in Model)
+	{
+		<p>@item.Id</p>
+		<p>@item.Name</p>
+		<p>@item.Description</p>
+		<a href="/">delete</a>
+		<a asp-controller="Drone" asp-action="Details" asp-route-id="@item.Id">Details</a>
+	}
+</body>
+</html>
