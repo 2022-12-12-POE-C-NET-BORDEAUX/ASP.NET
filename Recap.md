@@ -216,3 +216,106 @@ Elle permet de factoriser le code HTML commun à plusieurs vues.
 ```
 
 =====================================================
+
+## TP
+
+### Consignes
+
+1. Créez une Vue Razor nommée `ProductList`.
+2. Dans la Vue, créez une boucle Razor qui parcourt la liste de produits et affiche le nom et le prix de chaque produit.
+3. Ajoutez une condition Razor qui affiche un message spécifique si la liste de produits est vide.
+4. Testez votre solution en exécutant le projet et en vous assurant que la Vue affiche les données de la liste de produits de manière cohérente.
+5. Ajouter a votre Projet un modele User qui contiendra differents attributs :
+    1. UserName
+    2. Password
+    3. Credits
+    4. Birthday
+    5. Liste de produit
+6. Faites en Sorte d’afficher dans une nouvelle View la liste des utilisateurs.
+7. Faites en Sorte de pouvoir avoir acces a chaques pages via la bare de navifation
+8. Mettez en place une base de donnee representant les differentes models.
+
+=====================================================
+
+## Présentation des formulaires
+
+-   Création d'un formulaire
+
+```html
+<form asp-action="Index" asp-controller="Home" method="post">
+    <input type="text" name="name" />
+    <input type="submit" value="Envoyer" />
+</form>
+```
+
+-   Récupération des données du formulaire
+
+```csharp
+[HttpPost]
+public IActionResult Index(string name)
+{
+	return Content($"Bonjour {name}");
+}
+```
+
+=====================================================
+
+## recuperation d'un id dans une url
+
+-   Création d'une méthode dans le controller
+
+```csharp
+public IActionResult Details(int id)
+{
+	return Content($"Details de l'utilisateur {id}");
+}
+```
+
+=====================================================
+
+## Utilisation de la base de données
+
+-   Ajout d'une référence à EntityFrameworkCore.SqlServer
+-   Ajout d'une référence à EntityFrameworkCore.Design
+-   Ajout d'une référence à EntityFrameworkCore.Tools
+
+-   Création d'une classe de contexte
+
+```csharp
+public class ApplicationDbContext : DbContext
+{
+	public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+		: base(options)
+	{
+	}
+	public DbSet<Person> Persons { get; set; }
+}
+```
+
+-   Utilisation de la base de données
+
+```csharp
+public class HomeController : Controller
+{
+	private readonly ApplicationDbContext _context;
+	public HomeController(ApplicationDbContext context)
+	{
+		_context = context;
+	}
+	public IActionResult Index()
+	{
+		var persons = _context.Persons.ToList();
+		return View(persons);
+	}
+}
+```
+
+=====================================================
+
+## TP
+
+### Consignes
+
+Refaites le TP précédent en utilisant une base de données.
+
+=====================================================
