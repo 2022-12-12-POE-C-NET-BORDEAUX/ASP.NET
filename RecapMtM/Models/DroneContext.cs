@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using System;
-using Procducts.Models;
+using Products.Models;
 
 public class DroneContext : DbContext
 {
@@ -11,6 +11,11 @@ public class DroneContext : DbContext
 	{
 		Database.EnsureDeleted();
 		Database.EnsureCreated();
+		Drones.Add(new Drone("Drone 1", "Description 1"));
+		Drones.Add(new Drone("Drone 2", "Description 2"));
+		Users.Add(new User("User 1"));
+		Users.Add(new User("User 2"));
+		SaveChanges();
 	}
 
 	protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

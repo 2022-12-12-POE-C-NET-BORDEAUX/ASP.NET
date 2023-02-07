@@ -1,4 +1,4 @@
-namespace Procducts.Models
+namespace Products.Models
 {
 	public class Drone
 	{

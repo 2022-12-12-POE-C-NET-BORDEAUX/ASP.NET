@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Procducts.Models;
+using Products.Models;
 using System;
 
 public class DroneController : Controller
@@ -11,11 +11,6 @@ public class DroneController : Controller
 	public DroneController()
 	{
 		//context = new DroneContext();
-		context.Drones.Add(new Drone("Drone 1", "Description 1"));
-		context.Drones.Add(new Drone("Drone 2", "Description 2"));
-		context.Users.Add(new User("User 1"));
-		context.Users.Add(new User("User 2"));
-		context.SaveChanges();
 	}
 
 	public IActionResult Index()
@@ -32,7 +27,7 @@ public class DroneController : Controller
 		// lamda renvoi true si jamais l'id du drone == id
 		// liste de drone -> drone
 		Drone drone = context.Drones.Find(id);
-		return View(drone);
+		return View(drone);// Model <= drone = drone a l'id passer en parametre
 	}
 
 	[HttpPost]//annotation
@@ -44,8 +39,33 @@ public class DroneController : Controller
 		return RedirectToAction("Index", "Home");
 	}
 
+	[HttpGet]
+	public IActionResult Edit(int id)
+	{
+		Drone drone = context.Drones.Find(id);
+		return View(drone);
+	}
+
+	[HttpPost]
+	public IActionResult Edit(Drone drone)// Objet Drone <- id
+	{
+		Drone tmp = context.Drones.Find(drone.Id);
+		tmp.Name = drone.Name;
+		tmp.Description = drone.Description;
+		context.SaveChanges();
+		return RedirectToAction("Index", "Drone");
+	}
+
 	public IActionResult Create()
 	{
 		return View();
+	}
+
+	public IActionResult Delete(int id)
+	{
+		Drone drone = context.Drones.Find(id);
+		context.Drones.Remove(drone);
+		context.SaveChanges();
+		return RedirectToAction("Index", "Drone");
 	}
 }
